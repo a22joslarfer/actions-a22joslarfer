@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import TheWelcome from './components/li_numbers.vue';
+import TheWelcome from './components/multiwords.vue';
 </script>
 
 <style scoped>
