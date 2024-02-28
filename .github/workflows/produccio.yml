@@ -16,6 +16,7 @@ jobs:
           cd ${{ github.workspace }}
           # Agrega aquí tus comandos de slint para verificar el código
           # Instalar dependencias necesarias para slint
+          cd ./web/actions-vue/
           npm install
           # Verificar código con slint
           npm run lint
