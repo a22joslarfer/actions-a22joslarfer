@@ -20,9 +20,6 @@ jobs:
           # Verificar código con slint
           npm run lint
 
-          # corregir automáticamente los problemas encontrados
-          npm run lint -- --fix
-
       - name: scp a produccio
         run: |
           echo "${{ secrets.PROD_KEY }}" > ~/prod_key.pem
