@@ -15,6 +15,7 @@ jobs:
           cd ${{ github.workspace }}
           echo "Action desplegant a produccio" > ./githubactions-app/last_deploy.txt
           date >> ./githubactions-app/last_deploy.txt
-          scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./githubactions-app/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a22joslarfer/web/actionsjoslarfer.daw.inspedralbes.cat/public_html/
+          ssh-keyscan -H ${{ secrets.PROD_HOST }} >> ~/.ssh/known_hosts
+          scp -r -o stricthostkeychecking=no -i ~/prod_key.pem ./githubactions-app/dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a22joslarfer/web/actionsjoslarfer.daw.inspedralbes.cat/public_html/
           
       - run: echo "🍏 This job's status is ${{ job.status }}."
