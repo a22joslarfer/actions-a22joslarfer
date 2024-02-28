@@ -20,6 +20,10 @@ jobs:
           npm install
           # Verificar código con slint
           npm run lint
+          # test componente multiword tiene que salir error
+          npx eslint src/components/multiwords.vue
+
+
 
       - name: scp a produccio
         run: |
