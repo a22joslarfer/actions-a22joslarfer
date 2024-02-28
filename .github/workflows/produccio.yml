@@ -1,12 +1,27 @@
 name: Preparant per producció
-run-name: ${{ github.actor }} està pujant l'aplicació a PROD  🚀
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Puedes ajustar la rama según tus necesidades
+
 jobs:
   Pujar-a-produccio-amb-SCP:
     runs-on: ubuntu-latest
     steps:
       - name: Obtenint el codi del respositori
         uses: actions/checkout@v4
+
+      - name: Slint Check
+        run: |
+          cd ${{ github.workspace }}
+          # Agrega aquí tus comandos de slint para verificar el código
+          # Instalar dependencias necesarias para slint
+          npm install
+          # Verificar código con slint
+          npm run lint
+
+          # corregir automáticamente los problemas encontrados
+          npm run lint -- --fix
 
       - name: scp a produccio
         run: |
@@ -20,4 +35,4 @@ jobs:
           npm run build
           scp -r -o stricthostkeychecking=no -o UserKnownHostsFile=/dev/null -i "~/prod_key.pem" ./dist/* ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:/home/a22joslarfer/web/actionsjoslarfer.daw.inspedralbes.cat/public_html/
           
-      - run: echo "🍏 This job's status is ${{ job.status }}."º
+      - run: echo "🍏 This job's status is ${{ job.status }}."
